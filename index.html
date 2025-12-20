@@ -54,33 +54,42 @@
       overflow: hidden;
       border-radius: 10px;
       transition: transform 0.3s;
+      background-color: #222;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      height: 300px; /* uniform card height */
     }
 
     .anime-card img {
       width: 100%;
-      height: 250px;
-      object-fit: cover;
-      display: block;
-      border-radius: 10px;
+      height: 70%; /* image takes up 70% of card */
+      object-fit: cover; /* crops images nicely */
+      border-radius: 10px 10px 0 0;
+    }
+
+    .anime-card p {
+      margin: 0;
+      padding: 10px 5px;
+      text-align: center;
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(0,0,0,0.7);
+      font-size: 0.95em;
     }
 
     .anime-card:hover {
       transform: scale(1.03);
     }
 
-    .anime-card p {
-      position: absolute;
-      bottom: 0;
-      margin: 0;
-      width: 100%;
-      padding: 5px 0;
-      text-align: center;
-      background: rgba(0,0,0,0.6);
-    }
-
     a {
       text-decoration: none;
       color: inherit;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
     }
   </style>
 </head>
@@ -96,11 +105,7 @@
       let cards = document.getElementsByClassName('anime-card');
       for (let i = 0; i < cards.length; i++) {
         let title = cards[i].getElementsByTagName('p')[0].innerText.toLowerCase();
-        if (title.includes(input)) {
-          cards[i].style.display = '';
-        } else {
-          cards[i].style.display = 'none';
-        }
+        cards[i].style.display = title.includes(input) ? '' : 'none';
       }
     }
   </script>
@@ -114,21 +119,21 @@
   <main class="anime-container">
     <div class="anime-card">
       <a href="anime/anime1.html">
-        <img src="images/anime1.jpg" alt="Anime 1 Cover">
+        <img src="images/anime1.jpg" alt="The Girl I Like Forgot Her Glasses">
         <p>The Girl I Like Forgot Her Glasses</p>
       </a>
     </div>
 
     <div class="anime-card">
       <a href="anime/anime2.html">
-        <img src="images/anime2.jpg" alt="Anime 2 Cover">
+        <img src="images/anime2.jpg" alt="Shikimori's Not Just a Cutie">
         <p>Shikimori's Not Just a Cutie</p>
       </a>
     </div>
 
     <div class="anime-card">
       <a href="anime/anime3.html">
-        <img src="images/anime3.jpg" alt="Anime 3 Cover">
+        <img src="images/anime3.jpg" alt="Anime 3">
         <p>Anime 3</p>
       </a>
     </div>
