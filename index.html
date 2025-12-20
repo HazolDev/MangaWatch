@@ -1,39 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anime Streaming</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anime Stream</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #141414;
+      color: white;
+    }
+
+    header {
+      padding: 20px;
+      background-color: #111;
+      text-align: center;
+      font-size: 2em;
+    }
+
+    .anime-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 15px;
+      padding: 20px;
+    }
+
+    .anime-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+      transition: transform 0.3s;
+    }
+
+    .anime-card img {
+      width: 100%;
+      height: 250px; /* uniform thumbnail height */
+      object-fit: cover; /* crop without stretching */
+      display: block;
+      border-radius: 10px;
+    }
+
+    .anime-card:hover {
+      transform: scale(1.03);
+    }
+
+    .anime-card p {
+      position: absolute;
+      bottom: 0;
+      margin: 0;
+      width: 100%;
+      padding: 5px 0;
+      text-align: center;
+      background: rgba(0,0,0,0.6);
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>Anime Stream</h1>
-    </header>
+  <header>
+    <h1>Anime Stream</h1>
+  </header>
 
-    <main class="anime-container">
-        <!-- Example anime card -->
-        <div class="anime-card">
-            <a href="anime/anime1.html">
-                <img src="images/anime1.jpg" alt="Anime 1 Cover">
-                <p>Anime 1</p>
-            </a>
-        </div>
+  <main class="anime-container">
+    <div class="anime-card">
+      <a href="anime/anime1.html">
+        <img src="images/anime1.jpg" alt="Anime 1 Cover">
+        <p>Anime 1</p>
+      </a>
+    </div>
 
-        <div class="anime-card">
-            <a href="anime/anime2.html">
-                <img src="images/anime2.jpg" alt="Anime 2 Cover">
-                <p>Anime 2</p>
-            </a>
-        </div>
+    <div class="anime-card">
+      <a href="anime/anime2.html">
+        <img src="images/anime2.jpg" alt="Anime 2 Cover">
+        <p>Anime 2</p>
+      </a>
+    </div>
 
-        <div class="anime-card">
-            <a href="anime/anime3.html">
-                <img src="images/anime3.jpg" alt="Anime 3 Cover">
-                <p>Anime 3</p>
-            </a>
-        </div>
-        <!-- Add more cards here -->
-    </main>
+    <div class="anime-card">
+      <a href="anime/anime3.html">
+        <img src="images/anime3.jpg" alt="Anime 3 Cover">
+        <p>Anime 3</p>
+      </a>
+    </div>
+  </main>
 </body>
 </html>
