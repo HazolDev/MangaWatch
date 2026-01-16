@@ -15,7 +15,6 @@
     color: #f0f0f0;
   }
 
-  /* Top Bar */
   .top-bar {
     height: 60px;
     background: linear-gradient(to right, #111, #0d0d0d);
@@ -45,7 +44,6 @@
     height: calc(100vh - 60px);
   }
 
-  /* Sidebar */
   .sidebar {
     width: 280px;
     background: #181818;
@@ -93,7 +91,6 @@
     font-weight: 600;
   }
 
-  /* Main */
   .main {
     flex: 1;
     padding: 24px;
@@ -116,7 +113,6 @@
     margin-bottom: 15px;
   }
 
-  /* 🎥 FIXED VIDEO SIZING */
   .video-container {
     position: relative;
     width: 100%;
@@ -159,12 +155,10 @@
     opacity: 0.9;
   }
 
-  /* 📱 Mobile */
   @media (max-width: 768px) {
     .container {
       flex-direction: column;
     }
-
     .sidebar {
       width: 100%;
       padding: 12px;
@@ -173,28 +167,22 @@
       border-right: none;
       border-bottom: 1px solid #222;
     }
-
     .sidebar h2 {
       display: none;
     }
-
     .episode-list {
       display: flex;
       gap: 10px;
     }
-
     .episode-list li {
       margin-bottom: 0;
     }
-
     .main {
       padding: 16px;
     }
-
     .episode-title {
       font-size: 1.3em;
     }
-
     .controls {
       justify-content: center;
     }
@@ -214,12 +202,23 @@
     <h2>Episodes</h2>
     <ul class="episode-list">
       <li><a onclick="playEpisode(0)">Ep 1</a></li>
+      <li><a onclick="playEpisode(1)">Ep 2</a></li>
+      <li><a onclick="playEpisode(2)">Ep 3</a></li>
+      <li><a onclick="playEpisode(3)">Ep 4</a></li>
+      <li><a onclick="playEpisode(4)">Ep 5</a></li>
+      <li><a onclick="playEpisode(5)">Ep 6</a></li>
+      <li><a onclick="playEpisode(6)">Ep 7</a></li>
+      <li><a onclick="playEpisode(7)">Ep 8</a></li>
+      <li><a onclick="playEpisode(8)">Ep 9</a></li>
+      <li><a onclick="playEpisode(9)">Ep 10</a></li>
+      <li><a onclick="playEpisode(10)">Ep 11</a></li>
+      <li><a onclick="playEpisode(11)">Ep 12</a></li>
     </ul>
   </div>
 
   <div class="main">
     <div class="episode-title" id="episodeTitle"></div>
-    <div class="episode-desc">🚀 Estimated the next episode will come at 1/18/2026, 3:00:00 AM</div>
+    <div class="episode-desc">🚀 Estimated the next episode will come at 1/18/2026</div>
 
     <div class="video-container">
       <iframe id="player" allowfullscreen></iframe>
@@ -233,11 +232,17 @@
 </div>
 
 <script>
-  // ✅ EASY PASTE LINKS
-  const episodes = [
-    // You and I are polar opposites
-   "15c3PllXN4qWzOf6uuEwGTaWVzd7ZQLI5", //1
+  // You and I are polar opposites
+    "https://megacloud.bloggy.click/stream/s-3/162561/dub", // Ep 1
+  
   ];
+
+  // ✅ Auto-convert normal page URLs to embeddable URLs
+  function getEmbedURL(url) {
+    // Megaplay URLs are already direct, so return as-is
+    // If you ever use normal pages needing conversion, you can add logic here
+    return url;
+  }
 
   let currentEpisode = parseInt(localStorage.getItem("lastEpisode")) || 0;
 
@@ -245,11 +250,10 @@
     currentEpisode = index;
     localStorage.setItem("lastEpisode", index);
 
-    document.getElementById("player").src =
-      `https://drive.google.com/file/d/${episodes[index]}/preview`;
+    const link = getEmbedURL(episodes[index]);
+    document.getElementById("player").src = link;
 
-    document.getElementById("episodeTitle").textContent =
-      `Episode ${index + 1}`;
+    document.getElementById("episodeTitle").textContent = `Episode ${index + 1}`;
 
     document.querySelectorAll(".episode-list li")
       .forEach((li, i) => li.classList.toggle("active", i === index));
