@@ -8,197 +8,158 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-  body {
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-    background: radial-gradient(circle at top, #1a1a1a, #0f0f0f);
-    color: #f0f0f0;
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: radial-gradient(circle at top, #1a1a1a, #0f0f0f);
+  color: #f0f0f0;
+}
+
+/* Top Bar */
+.top-bar {
+  height: 60px;
+  background: linear-gradient(to right, #111, #0d0d0d);
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  border-bottom: 1px solid #222;
+}
+
+.home-btn {
+  background: #ff69b4;
+  color: black;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* Layout */
+.container {
+  display: flex;
+  height: calc(100vh - 60px);
+}
+
+/* Sidebar */
+.sidebar {
+  width: 280px;
+  background: #181818;
+  padding: 20px;
+  overflow-y: auto;
+  border-right: 1px solid #222;
+}
+
+.sidebar h2 {
+  margin-top: 0;
+  color: #ff69b4;
+}
+
+.episode-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.episode-list li {
+  margin-bottom: 10px;
+}
+
+.episode-list button {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: transparent;
+  border: none;
+  color: #ccc;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+}
+
+.episode-list li.active button {
+  background: #ff69b4;
+  color: black;
+  font-weight: 600;
+}
+
+.episode-list button:hover {
+  background: #2a2a2a;
+  color: white;
+}
+
+/* Main */
+.main {
+  flex: 1;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.episode-title {
+  width: 100%;
+  max-width: 900px;
+  font-size: 1.6em;
+  margin-bottom: 10px;
+}
+
+.video-container {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  aspect-ratio: 16 / 9;
+  background: black;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.video-container iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.controls {
+  margin-top: 20px;
+}
+
+.controls button {
+  background: #ff69b4;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
   }
 
-  /* Top Bar */
-  .top-bar {
-    height: 60px;
-    background: linear-gradient(to right, #111, #0d0d0d);
-    display: flex;
-    align-items: center;
-    padding: 0 16px;
+  .sidebar {
+    width: 100%;
+    border-right: none;
     border-bottom: 1px solid #222;
   }
 
-  .home-btn {
-    background: #ff69b4;
-    color: black;
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: transform 0.2s, opacity 0.2s;
-  }
-
-  .home-btn:hover {
-    transform: scale(1.05);
-    opacity: 0.9;
-  }
-
-  .container {
-    display: flex;
-    height: calc(100vh - 60px);
-  }
-
-  /* Sidebar */
-  .sidebar {
-    width: 280px;
-    background: #181818;
-    padding: 20px;
-    overflow-y: auto;
-    border-right: 1px solid #222;
-  }
-
-  .sidebar h2 {
-    margin-top: 0;
-    margin-bottom: 15px;
-    font-size: 1.2em;
-    color: #ff69b4;
-  }
-
   .episode-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
   }
 
   .episode-list li {
-    margin-bottom: 10px;
+    margin-bottom: 0;
   }
 
-  .episode-list li a {
-    display: block;
-    padding: 8px 12px;
-    border-radius: 8px;
-    color: #ccc;
-    text-decoration: none;
-    cursor: pointer;
-    transition: background 0.2s, color 0.2s;
+  .episode-list button {
     white-space: nowrap;
   }
-
-  .episode-list li a:hover {
-    background: #2a2a2a;
-    color: white;
-  }
-
-  .episode-list li.active a {
-    background: #ff69b4;
-    color: black;
-    font-weight: 600;
-  }
-
-  /* Main */
-  .main {
-    flex: 1;
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .episode-title {
-    width: 100%;
-    max-width: 900px;
-    font-size: 1.6em;
-    margin-bottom: 5px;
-  }
-
-  .episode-desc {
-    width: 100%;
-    max-width: 900px;
-    color: #aaa;
-    margin-bottom: 15px;
-  }
-
-  /* 🎥 FIXED VIDEO SIZING */
-  .video-container {
-    position: relative;
-    width: 100%;
-    max-width: 900px;
-    aspect-ratio: 16 / 9;
-    background: black;
-    border-radius: 14px;
-    overflow: hidden;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-  }
-
-  .video-container iframe {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
-  }
-
-  .controls {
-    margin-top: 20px;
-    width: 100%;
-    max-width: 900px;
-    display: flex;
-    justify-content: flex-end;
-  }
-
-  .controls button {
-    background: #ff69b4;
-    border: none;
-    padding: 10px 18px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: transform 0.2s, opacity 0.2s;
-  }
-
-  .controls button:hover {
-    transform: scale(1.05);
-    opacity: 0.9;
-  }
-
-  /* 📱 Mobile */
-  @media (max-width: 768px) {
-    .container {
-      flex-direction: column;
-    }
-
-    .sidebar {
-      width: 100%;
-      padding: 12px;
-      overflow-x: auto;
-      overflow-y: hidden;
-      border-right: none;
-      border-bottom: 1px solid #222;
-    }
-
-    .sidebar h2 {
-      display: none;
-    }
-
-    .episode-list {
-      display: flex;
-      gap: 10px;
-    }
-
-    .episode-list li {
-      margin-bottom: 0;
-    }
-
-    .main {
-      padding: 16px;
-    }
-
-    .episode-title {
-      font-size: 1.3em;
-    }
-
-    .controls {
-      justify-content: center;
-    }
-  }
+}
 </style>
 </head>
 
@@ -212,37 +173,11 @@
 
   <div class="sidebar">
     <h2>Episodes</h2>
-    <ul class="episode-list">
-      <li><a onclick="playEpisode(0)">Ep 1</a></li>
-        <li><a onclick="playEpisode(1)">Ep 2</a></li>
-        <li><a onclick="playEpisode(2)">Ep 3</a></li>
-        <li><a onclick="playEpisode(3)">Ep 4</a></li>
-        <li><a onclick="playEpisode(4)">Ep 5</a></li>
-        <li><a onclick="playEpisode(5)">Ep 6</a></li>
-        <li><a onclick="playEpisode(6)">Ep 7</a></li>
-        <li><a onclick="playEpisode(7)">Ep 8</a></li>
-        <li><a onclick="playEpisode(8)">Ep 9</a></li>
-        <li><a onclick="playEpisode(9)">Ep 10</a></li>
-        <li><a onclick="playEpisode(10)">Ep 11</a></li>
-        <li><a onclick="playEpisode(11)">Ep 12</a></li>
-      <li><a onclick="playEpisode(12)">Ep 13</a></li>
-        <li><a onclick="playEpisode(13)">Ep 14</a></li>
-        <li><a onclick="playEpisode(14)">Ep 15</a></li>
-        <li><a onclick="playEpisode(15)">Ep 16</a></li>
-        <li><a onclick="playEpisode(16)">Ep 17</a></li>
-        <li><a onclick="playEpisode(17)">Ep 18</a></li>
-        <li><a onclick="playEpisode(18)">Ep 19</a></li>
-        <li><a onclick="playEpisode(19)">Ep 20</a></li>
-        <li><a onclick="playEpisode(20)">Ep 21</a></li>
-        <li><a onclick="playEpisode(21)">Ep 22</a></li>
-        <li><a onclick="playEpisode(22)">Ep 23</a></li>
-       <li><a onclick="playEpisode(23)">Ep 24</a></li>
-    </ul>
+    <ul class="episode-list" id="episodeList"></ul>
   </div>
 
   <div class="main">
     <div class="episode-title" id="episodeTitle"></div>
-    <div class="episode-desc">Watch now in dub!</div>
 
     <div class="video-container">
       <iframe id="player" allowfullscreen></iframe>
@@ -256,58 +191,64 @@
 </div>
 
 <script>
-  // ✅ EASY PASTE LINKS
-  const episodes = [
-    //   That Time I Got Reincarnated as a Slime Season 3
-    "https://megacloud.bloggy.click/stream/s-3/123215/dub", //1
-    "https://megacloud.bloggy.click/stream/s-3/123325/dub", //2
-    "https://megacloud.bloggy.click/stream/s-3/123457/dub", //3
-    "https://megacloud.bloggy.click/stream/s-3/123735/dub", //4
-    "https://megacloud.bloggy.click/stream/s-3/123871/dub", //5
-    "https://megacloud.bloggy.click/stream/s-3/124216/dub", //6
-    "https://megacloud.bloggy.click/stream/s-3/124328/dub", //7
-    "https://megacloud.bloggy.click/stream/s-3/124313/dub", //8
-    "https://megacloud.bloggy.click/stream/s-3/124738/dub", //9
-    "https://megacloud.bloggy.click/stream/s-3/124967/dub", //10
-    "https://megacloud.bloggy.click/stream/s-3/125237/dub", //11
-    "https://megacloud.bloggy.click/stream/s-3/125504/dub", //12
-    "https://megacloud.bloggy.click/stream/s-3/125700/dub", //13
-    "https://megacloud.bloggy.click/stream/s-3/125830/dub", //14
-    "https://megacloud.bloggy.click/stream/s-3/126386/dub", //15
-    "https://megacloud.bloggy.click/stream/s-3/126718/dub", //16
-    "https://megacloud.bloggy.click/stream/s-3/126923/dub", //17
-    "https://megacloud.bloggy.click/stream/s-3/127487/dub", //18
-    "https://megacloud.bloggy.click/stream/s-3/127598/dub", //19
-    "https://megacloud.bloggy.click/stream/s-3/127829/dub", //20
-    "https://megacloud.bloggy.click/stream/s-3/127911/dub", //21
-    "https://megacloud.bloggy.click/stream/s-3/128062/dub", //22
-    "https://megacloud.bloggy.click/stream/s-3/128187/dub", //23
-    "https://megacloud.bloggy.click/stream/s-3/128288/dub", //24
-  ];
+const episodes = [
+  "https://megacloud.bloggy.click/stream/s-3/123215/dub",
+  "https://megacloud.bloggy.click/stream/s-3/123325/dub",
+  "https://megacloud.bloggy.click/stream/s-3/123457/dub",
+  "https://megacloud.bloggy.click/stream/s-3/123735/dub",
+  "https://megacloud.bloggy.click/stream/s-3/123871/dub",
+  "https://megacloud.bloggy.click/stream/s-3/124216/dub",
+  "https://megacloud.bloggy.click/stream/s-3/124328/dub",
+  "https://megacloud.bloggy.click/stream/s-3/124313/dub",
+  "https://megacloud.bloggy.click/stream/s-3/124738/dub",
+  "https://megacloud.bloggy.click/stream/s-3/124967/dub",
+  "https://megacloud.bloggy.click/stream/s-3/125237/dub",
+  "https://megacloud.bloggy.click/stream/s-3/125504/dub",
+  "https://megacloud.bloggy.click/stream/s-3/125700/dub",
+  "https://megacloud.bloggy.click/stream/s-3/125830/dub",
+  "https://megacloud.bloggy.click/stream/s-3/126386/dub",
+  "https://megacloud.bloggy.click/stream/s-3/126718/dub",
+  "https://megacloud.bloggy.click/stream/s-3/126923/dub",
+  "https://megacloud.bloggy.click/stream/s-3/127487/dub",
+  "https://megacloud.bloggy.click/stream/s-3/127598/dub",
+  "https://megacloud.bloggy.click/stream/s-3/127829/dub",
+  "https://megacloud.bloggy.click/stream/s-3/127911/dub",
+  "https://megacloud.bloggy.click/stream/s-3/128062/dub",
+  "https://megacloud.bloggy.click/stream/s-3/128187/dub",
+  "https://megacloud.bloggy.click/stream/s-3/128288/dub"
+];
 
-  let currentEpisode = parseInt(localStorage.getItem("lastEpisode")) || 0;
+const list = document.getElementById("episodeList");
+let currentEpisode = Number(localStorage.getItem("lastEpisode")) || 0;
 
-  function playEpisode(index) {
-    currentEpisode = index;
-    localStorage.setItem("lastEpisode", index);
+/* Build episode buttons */
+episodes.forEach((_, i) => {
+  const li = document.createElement("li");
+  const btn = document.createElement("button");
+  btn.textContent = `Ep ${i + 1}`;
+  btn.onclick = () => playEpisode(i);
+  li.appendChild(btn);
+  list.appendChild(li);
+});
 
-    document.getElementById("player").src =
-      `https://drive.google.com/file/d/${episodes[index]}/preview`;
+function playEpisode(index) {
+  currentEpisode = index;
+  localStorage.setItem("lastEpisode", index);
 
-    document.getElementById("episodeTitle").textContent =
-      `Episode ${index + 1}`;
+  document.getElementById("player").src = episodes[index];
+  document.getElementById("episodeTitle").textContent = `Episode ${index + 1}`;
 
-    document.querySelectorAll(".episode-list li")
-      .forEach((li, i) => li.classList.toggle("active", i === index));
+  document.querySelectorAll(".episode-list li")
+    .forEach((li, i) => li.classList.toggle("active", i === index));
+}
+
+function nextEpisode() {
+  if (currentEpisode < episodes.length - 1) {
+    playEpisode(currentEpisode + 1);
   }
+}
 
-  function nextEpisode() {
-    if (currentEpisode < episodes.length - 1) {
-      playEpisode(currentEpisode + 1);
-    }
-  }
-
-  playEpisode(currentEpisode);
+playEpisode(currentEpisode);
 </script>
 
 </body>
