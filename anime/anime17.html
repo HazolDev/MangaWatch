@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Watch Anime</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: radial-gradient(circle at top, #1a1a1a, #0f0f0f);
+  color: #f0f0f0;
+}
+
+/* Top Bar */
+.top-bar {
+  height: 60px;
+  background: linear-gradient(to right, #111, #0d0d0d);
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  border-bottom: 1px solid #222;
+}
+
+.home-btn {
+  background: #ff69b4;
+  color: black;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* Layout */
+.container {
+  display: flex;
+  height: calc(100vh - 60px);
+}
+
+/* Sidebar */
+.sidebar {
+  width: 280px;
+  background: #181818;
+  padding: 20px;
+  overflow-y: auto;
+  border-right: 1px solid #222;
+}
+
+.sidebar h2 {
+  margin-top: 0;
+  color: #ff69b4;
+}
+
+.episode-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.episode-list li {
+  margin-bottom: 10px;
+}
+
+.episode-list button {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: transparent;
+  border: none;
+  color: #ccc;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+}
+
+.episode-list li.active button {
+  background: #ff69b4;
+  color: black;
+  font-weight: 600;
+}
+
+.episode-list button:hover {
+  background: #2a2a2a;
+  color: white;
+}
+
+/* Main */
+.main {
+  flex: 1;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.episode-title {
+  width: 100%;
+  max-width: 900px;
+  font-size: 1.6em;
+  margin-bottom: 10px;
+}
+
+.video-container {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  aspect-ratio: 16 / 9;
+  background: black;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.video-container iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.controls {
+  margin-top: 20px;
+}
+
+.controls button {
+  background: #ff69b4;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #222;
+  }
+
+  .episode-list {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+  }
+
+  .episode-list li {
+    margin-bottom: 0;
+  }
+
+  .episode-list button {
+    white-space: nowrap;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="top-bar">
+  <a href="../index.html" class="home-btn">⬅ Home</a>
+</div>
+
+<div class="container">
+
+  <div class="sidebar">
+    <h2>Episodes</h2>
+    <ul class="episode-list" id="episodeList"></ul>
+  </div>
+
+  <div class="main">
+    <div class="episode-title" id="episodeTitle"></div>
+
+    <div class="video-container">
+      <iframe id="player" allowfullscreen></iframe>
+    </div>
+
+    <div class="controls">
+      <button onclick="nextEpisode()">Next Episode ▶</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const episodes = [
+  // solo leveling
+  "https://megacloud.bloggy.click/stream/s-3/131394/dub",
+ "https://megacloud.bloggy.click/stream/s-3/131406/dub",
+  "https://megacloud.bloggy.click/stream/s-3/132033/dub",
+  "https://megacloud.bloggy.click/stream/s-3/132212/dub",
+  "https://megacloud.bloggy.click/stream/s-3/132300/dub",
+  "https://megacloud.bloggy.click/stream/s-3/132569/dub",
+  "https://megacloud.bloggy.click/stream/s-3/132975/dub",
+  "https://megacloud.bloggy.click/stream/s-3/133383/dub",
+  "https://megacloud.bloggy.click/stream/s-3/133793/dub",
+  "https://megacloud.bloggy.click/stream/s-3/134524/dub",
+  "https://megacloud.bloggy.click/stream/s-3/134989/dub",
+  "https://megacloud.bloggy.click/stream/s-3/135478/dub",
+];
+
+const list = document.getElementById("episodeList");
+let currentEpisode = Number(localStorage.getItem("lastEpisode")) || 0;
+
+/* Build episode buttons */
+episodes.forEach((_, i) => {
+  const li = document.createElement("li");
+  const btn = document.createElement("button");
+  btn.textContent = `Ep ${i + 1}`;
+  btn.onclick = () => playEpisode(i);
+  li.appendChild(btn);
+  list.appendChild(li);
+});
+
+function playEpisode(index) {
+  currentEpisode = index;
+  localStorage.setItem("lastEpisode", index);
+
+  document.getElementById("player").src = episodes[index];
+  document.getElementById("episodeTitle").textContent = `Episode ${index + 1}`;
+
+  document.querySelectorAll(".episode-list li")
+    .forEach((li, i) => li.classList.toggle("active", i === index));
+}
+
+function nextEpisode() {
+  if (currentEpisode < episodes.length - 1) {
+    playEpisode(currentEpisode + 1);
+  }
+}
+
+playEpisode(currentEpisode);
+</script>
+
+</body>
+</html>
